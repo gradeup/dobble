@@ -4,6 +4,7 @@ import 'dart:io' show Platform;
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_database/firebase_database.dart';
+import 'package:gradeup_dobble/gamepage/gamepage.dart';
 
 
 Future<void> main() async {
@@ -16,8 +17,28 @@ Future<void> main() async {
     ),
   );
   runApp(new MaterialApp(
-    home: new MyHomePage(app:app),
+    home: new MyApp(app:app),
   ));
+}
+
+class MyApp extends StatelessWidget {
+  final FirebaseApp app;
+  MyApp({this.app});
+  @override
+  Widget build(BuildContext context) {
+    // TODO: implement build
+    return new MaterialApp(
+      title: 'Gradeup dobble',
+      theme: new ThemeData(
+        primarySwatch: Colors.blue,
+      ),
+      initialRoute: '/',
+      routes: {
+        '/': (context) => new MyHomePage(app:this.app),
+        '/homepage': (context) => new GamepageScreen(),
+      },
+    );
+  }
 }
 
 class User {
@@ -65,7 +86,7 @@ class _MyHomePageState extends State<MyHomePage> {
       await _userRef.push().set(<String, String>{
         'name': this.userInput
       });
-//      Navigator.pushNamed(context, '/homepage');
+      Navigator.pushNamed(context, '/homepage');
   }
 
 
