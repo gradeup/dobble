@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "995601114367",
+    "firebase_url": "https://gradeup-dobble.firebaseio.com",
+    "project_id": "gradeup-dobble",
+    "storage_bucket": "gradeup-dobble.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:995601114367:android:dd4da2546484e24c",
+        "android_client_info": {
+          "package_name": "co.gradeup.gradeupdobble"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "995601114367-5a1667m799u1b6sgk2vr725q3lo7g6p0.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "co.gradeup.gradeupdobble",
+            "certificate_hash": "2eb1b201dbc19f2b1cfec365ebd9aa16f8d7e790"
+          }
+        },
+        {
+          "client_id": "995601114367-0oi2ppnl4lk2ami4u1an60ss76gk0fb6.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCh_wOzMFc_InLgJiUpEISPw63N2MqCMSs"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "995601114367-0oi2ppnl4lk2ami4u1an60ss76gk0fb6.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

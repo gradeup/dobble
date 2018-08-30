@@ -1,31 +1,36 @@
+import 'dart:async';
+import 'dart:io' show Platform;
+
 import 'package:flutter/material.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_database/firebase_database.dart';
 
-void main() => runApp(new MyApp());
 
-class MyApp extends StatelessWidget {
-  // This widget is the root of your application.
-  @override
-  Widget build(BuildContext context) {
-    return new MaterialApp(
-      title: 'Flutter Demo',
-      theme: new ThemeData(
-        // This is the theme of your application.
-        //
-        // Try running your application with "flutter run". You'll see the
-        // application has a blue toolbar. Then, without quitting the app, try
-        // changing the primarySwatch below to Colors.green and then invoke
-        // "hot reload" (press "r" in the console where you ran "flutter run",
-        // or press Run > Flutter Hot Reload in IntelliJ). Notice that the
-        // counter didn't reset back to zero; the application is not restarted.
-        primarySwatch: Colors.blue,
-      ),
-      home: new MyHomePage(title: 'Dobble App'),
-    );
+Future<void> main() async {
+  final FirebaseApp app = await FirebaseApp.configure(
+    name: 'db2',
+    options: const FirebaseOptions(
+      googleAppID: '1:995601114367:android:dd4da2546484e24c',
+      apiKey: 'AIzaSyCZ_MJLRymXCnbdqPrTQnwNsK9j2CYDfIc',
+      databaseURL: 'https://gradeup-dobble.firebaseio.com/',
+    ),
+  );
+  runApp(new MaterialApp(
+    home: new MyHomePage(app:app),
+  ));
+}
+
+class User {
+  String name;
+  User (String name) {
+    this.name = name;
   }
 }
 
+
 class MyHomePage extends StatefulWidget {
-  MyHomePage({Key key, this.title}) : super(key: key);
+  MyHomePage({this.app});
+  final FirebaseApp app;
 
   // This widget is the home page of your application. It is stateful, meaning
   // that it has a State object (defined below) that contains fields that affect
@@ -44,6 +49,26 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   int _counter = 0;
+  DatabaseReference _userRef;
+  String userInput;
+  @override
+  void initState() {
+    super.initState();
+    // Demonstrates configuring to the database using a file
+    _userRef = FirebaseDatabase.instance.reference().child('users');
+
+  }
+
+
+
+  Future<Null>  _addUser() async {
+      await _userRef.push().set(<String, String>{
+        'name': this.userInput
+      });
+//      Navigator.pushNamed(context, '/homepage');
+  }
+
+
 
   void _incrementCounter() {
     setState(() {
@@ -68,7 +93,7 @@ class _MyHomePageState extends State<MyHomePage> {
       appBar: new AppBar(
         // Here we take the value from the MyHomePage object that was created by
         // the App.build method, and use it to set our appbar title.
-        title: new Text(widget.title),
+        title: new Text("Test"),
       ),
       body: new Center(
         // Center is a layout widget. It takes a single child and positions it
@@ -89,21 +114,21 @@ class _MyHomePageState extends State<MyHomePage> {
           // horizontal).
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            new Text(
-              'You have pushed the button this many times:',
+            new TextField(
+              decoration: new InputDecoration(labelText: "Enter your name"),
+              keyboardType: TextInputType.text,
+              onChanged: (String value) {
+                this.userInput = value;
+              },
             ),
-            new Text(
-              '$_counter',
-              style: Theme.of(context).textTheme.display1,
-            ),
+            RaisedButton(
+                child: Text('Next'),
+                onPressed: _addUser,
+            )
           ],
         ),
       ),
-      floatingActionButton: new FloatingActionButton(
-        onPressed: _incrementCounter,
-        tooltip: 'Increment',
-        child: new Icon(Icons.add),
-      ), // This trailing comma makes auto-formatting nicer for build methods.
+
     );
   }
 }
